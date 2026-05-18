@@ -11,7 +11,7 @@
         "id": "96b885d491976025",
         "type": "inject",
         "z": "3437b01cdc9be678",
-        "name": "",
+        "name": "Timer Serverraum",
         "props": [
             {
                 "p": "payload"
@@ -28,7 +28,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "str",
-        "x": 110,
+        "x": 150,
         "y": 220,
         "wires": [
             [
@@ -40,15 +40,15 @@
         "id": "a290427c4f9b6ba2",
         "type": "function",
         "z": "3437b01cdc9be678",
-        "name": "function 2",
-        "func": "\n// msg.payload = {\n//   meter_id: 1,\n//   value: Math.floor(Math.random() * 20000)\n// };\n// return msg;\n\n// let base = 15000;\n\n// msg.payload = {\n//   meter_id: 1,\n//   value: base + Math.floor(Math.random() * 2000 - 1000)\n// };\n// return msg;\n\n\n\n// let meters = {\n//   1: { base: 15000, range: 1000 },\n//   2: { base: 2500, range: 300 },\n//   3: { base: 5000, range: 800 }\n// };\n\n// let m = meters[msg.payload?.meter_id || 1];\n\n// msg.payload = {\n//   meter_id: msg.payload?.meter_id || 1,\n//   value: m.base + Math.floor(Math.random() * m.range * 2 - m.range)\n// };\n\n// return msg;\n\n// 1. Zufallsdaten generieren\nlet meters = {\n    1: {base: 15000, range: 1000},\n    2: {base: 2500, range: 300},\n    3: {base: 5000, range: 800},\n};\n\nlet id = Math.floor(Math.random() * 3) + 1;\nlet m = meters[id];\n\n// 2. Payload als Array verpacken\nmsg.payload = [{\n    meter_id: id, \n    value: m.base + Math.floor(Math.random() * m.range * 2 - m.range)    \n}];\n\nreturn msg;\n\n",
+        "name": "Prep Serverraum",
+        "func": "msg.payload = [{\n    \"meter_id\": 2,\n    \"value\": Math.floor(Math.random() * 500 + 2500)\n}];\nreturn msg;\n\n\n\n\n\n// msg.payload = {\n//   meter_id: 1,\n//   value: Math.floor(Math.random() * 20000)\n// };\n// return msg;\n\n// let base = 15000;\n\n// msg.payload = {\n//   meter_id: 1,\n//   value: base + Math.floor(Math.random() * 2000 - 1000)\n// };\n// return msg;\n\n\n\n// let meters = {\n//   1: { base: 15000, range: 1000 },\n//   2: { base: 2500, range: 300 },\n//   3: { base: 5000, range: 800 }\n// };\n\n// let m = meters[msg.payload?.meter_id || 1];\n\n// msg.payload = {\n//   meter_id: msg.payload?.meter_id || 1,\n//   value: m.base + Math.floor(Math.random() * m.range * 2 - m.range)\n// };\n\n// return msg;\n\n// // 1. Zufallsdaten generieren\n// let meters = {\n//     1: {base: 15000, range: 1000},\n//     2: {base: 2500, range: 300},\n//     3: {base: 5000, range: 800},\n// };\n\n// let id = Math.floor(Math.random() * 3) + 1;\n// let m = meters[id];\n\n// // 2. Payload als Array verpacken\n// msg.payload = [{\n//     meter_id: id, \n//     value: m.base + Math.floor(Math.random() * m.range * 2 - m.range)    \n// }];\n\n// return msg;\n\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
+        "x": 410,
         "y": 220,
         "wires": [
             [
@@ -92,7 +92,7 @@
                 "valueValue": "Bearer sb_publishable_65QhshLEqdb66bWd8UIWKw_uKU-v_wL"
             }
         ],
-        "x": 530,
+        "x": 670,
         "y": 220,
         "wires": [
             []
@@ -133,15 +133,15 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
+        "x": 660,
         "y": 300,
         "wires": []
     },
     {
-        "id": "19f51b9d4e700f92",
+        "id": "c2457c3be65b5e19",
         "type": "inject",
         "z": "3437b01cdc9be678",
-        "name": "",
+        "name": "Timer Lüftung HVAC",
         "props": [
             {
                 "p": "payload"
@@ -157,40 +157,82 @@
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
-        "payloadType": "num",
-        "x": 110,
-        "y": 80,
+        "payloadType": "str",
+        "x": 150,
+        "y": 420,
         "wires": [
             [
-                "6c7ad6971fe7bcaa"
+                "b54e5d8ec2191dd8"
             ]
         ]
     },
     {
-        "id": "6c7ad6971fe7bcaa",
+        "id": "b54e5d8ec2191dd8",
         "type": "function",
         "z": "3437b01cdc9be678",
-        "name": "function 1",
-        "func": "\n// msg.payload = {\n//   meter_id: 1,\n//   value: Math.floor(Math.random() * 20000)\n// };\n// return msg;\n\n// let base = 15000;\n\n// msg.payload = {\n//   meter_id: 1,\n//   value: base + Math.floor(Math.random() * 2000 - 1000)\n// };\n// return msg;\n\n\n\n// let meters = {\n//   1: { base: 15000, range: 1000 },\n//   2: { base: 2500, range: 300 },\n//   3: { base: 5000, range: 800 }\n// };\n\n// let m = meters[msg.payload?.meter_id || 1];\n\n// msg.payload = {\n//   meter_id: msg.payload?.meter_id || 1,\n//   value: m.base + Math.floor(Math.random() * m.range * 2 - m.range)\n// };\n\n// return msg;\n\nmsg.payload = {\n    meter_id: 1,\n    value: 15000\n};\n\nreturn msg",
+        "name": "Prep Lüftung HVAC",
+        "func": "\nmsg.payload = [{\n    \"meter_id\": 3,\n    \"value\": Math.floor(Math.random() * 500 + 2500)\n}];\nreturn msg;\n\n\n// msg.payload = {\n//   meter_id: 1,\n//   value: Math.floor(Math.random() * 20000)\n// };\n// return msg;\n\n// let base = 15000;\n\n// msg.payload = {\n//   meter_id: 1,\n//   value: base + Math.floor(Math.random() * 2000 - 1000)\n// };\n// return msg;\n\n\n\n// let meters = {\n//   1: { base: 15000, range: 1000 },\n//   2: { base: 2500, range: 300 },\n//   3: { base: 5000, range: 800 }\n// };\n\n// let m = meters[msg.payload?.meter_id || 1];\n\n// msg.payload = {\n//   meter_id: msg.payload?.meter_id || 1,\n//   value: m.base + Math.floor(Math.random() * m.range * 2 - m.range)\n// };\n\n// // return msg;\n\n// // 1. Zufallsdaten generieren\n// let meters = {\n//     1: {base: 15000, range: 1000},\n//     2: {base: 2500, range: 300},\n//     3: {base: 5000, range: 800},\n// };\n\n// let id = Math.floor(Math.random() * 3) + 1;\n// let m = meters[id];\n\n// // 2. Payload als Array verpacken\n// msg.payload = [{\n//     meter_id: id, \n//     value: m.base + Math.floor(Math.random() * m.range * 2 - m.range)    \n// }];\n\n// return msg;\n\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 80,
+        "x": 410,
+        "y": 420,
         "wires": [
             [
-                "9fb5be4124af86fe"
+                "edcbf77174bf38f3",
+                "63f526ff415ad098"
             ]
         ]
     },
     {
-        "id": "9fb5be4124af86fe",
+        "id": "edcbf77174bf38f3",
+        "type": "http request",
+        "z": "3437b01cdc9be678",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://pdvqrtyqhdxvaiommjdw.supabase.co/rest/v1/readings",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "apikey",
+                "valueType": "other",
+                "valueValue": "sb_publishable_65QhshLEqdb66bWd8UIWKw_uKU-v_wL"
+            },
+            {
+                "keyType": "Authorization",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "Bearer sb_publishable_65QhshLEqdb66bWd8UIWKw_uKU-v_wL"
+            }
+        ],
+        "x": 670,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "63f526ff415ad098",
         "type": "debug",
         "z": "3437b01cdc9be678",
-        "name": "debug 1",
+        "name": "debug 4",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -199,8 +241,116 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 500,
-        "y": 80,
+        "x": 660,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "d9ef6a2408778b56",
+        "type": "inject",
+        "z": "3437b01cdc9be678",
+        "name": "Timer Hauptanschluss",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 160,
+        "y": 40,
+        "wires": [
+            [
+                "6680aab70b8e2249"
+            ]
+        ]
+    },
+    {
+        "id": "6680aab70b8e2249",
+        "type": "function",
+        "z": "3437b01cdc9be678",
+        "name": "Prep Hauptanschluss",
+        "func": "\nmsg.payload = [{\n    \"meter_id\": 1,\n    \"value\": Math.floor(Math.random() * 5000 + 15000)\n}];\nreturn msg;\n\n\n// msg.payload = {\n//   meter_id: 1,\n//   value: base + Math.floor(Math.random() * 2000 - 1000)\n// };\n// return msg;\n\n\n\n\n// // 1. Zufallsdaten generieren\n// let meters = {\n//     1: {base: 15000, range: 1000},\n//     2: {base: 2500, range: 300},\n//     3: {base: 5000, range: 800},\n// };\n\n// let id = Math.floor(Math.random() * 3) + 1;\n// let m = meters[id];\n\n// // 2. Payload als Array verpacken\n// msg.payload = [{\n//     meter_id: id, \n//     value: m.base + Math.floor(Math.random() * m.range * 2 - m.range)    \n// }];\n\n// return msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 40,
+        "wires": [
+            [
+                "7ee7456b881eeebc",
+                "da227d016d7ac12c"
+            ]
+        ]
+    },
+    {
+        "id": "7ee7456b881eeebc",
+        "type": "http request",
+        "z": "3437b01cdc9be678",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://pdvqrtyqhdxvaiommjdw.supabase.co/rest/v1/readings",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "apikey",
+                "valueType": "other",
+                "valueValue": "sb_publishable_65QhshLEqdb66bWd8UIWKw_uKU-v_wL"
+            },
+            {
+                "keyType": "Authorization",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "Bearer sb_publishable_65QhshLEqdb66bWd8UIWKw_uKU-v_wL"
+            }
+        ],
+        "x": 670,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da227d016d7ac12c",
+        "type": "debug",
+        "z": "3437b01cdc9be678",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 120,
         "wires": []
     }
 ]
