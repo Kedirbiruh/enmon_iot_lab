@@ -29,7 +29,7 @@
         "payload": "",
         "payloadType": "str",
         "x": 150,
-        "y": 220,
+        "y": 180,
         "wires": [
             [
                 "a290427c4f9b6ba2"
@@ -49,7 +49,7 @@
         "finalize": "",
         "libs": [],
         "x": 410,
-        "y": 220,
+        "y": 180,
         "wires": [
             [
                 "188dcb86b6270202",
@@ -93,7 +93,7 @@
             }
         ],
         "x": 670,
-        "y": 220,
+        "y": 180,
         "wires": [
             []
         ]
@@ -134,7 +134,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 660,
-        "y": 300,
+        "y": 260,
         "wires": []
     },
     {
@@ -159,7 +159,7 @@
         "payload": "",
         "payloadType": "str",
         "x": 150,
-        "y": 420,
+        "y": 320,
         "wires": [
             [
                 "b54e5d8ec2191dd8"
@@ -178,8 +178,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 420,
+        "x": 430,
+        "y": 320,
         "wires": [
             [
                 "edcbf77174bf38f3",
@@ -222,8 +222,8 @@
                 "valueValue": "Bearer sb_publishable_65QhshLEqdb66bWd8UIWKw_uKU-v_wL"
             }
         ],
-        "x": 670,
-        "y": 420,
+        "x": 690,
+        "y": 320,
         "wires": [
             []
         ]
@@ -242,7 +242,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 660,
-        "y": 500,
+        "y": 380,
         "wires": []
     },
     {
@@ -352,5 +352,305 @@
         "x": 660,
         "y": 120,
         "wires": []
+    },
+    {
+        "id": "370275bfd454adb5",
+        "type": "inject",
+        "z": "3437b01cdc9be678",
+        "name": "ENMON Simulator Tick",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 580,
+        "wires": [
+            [
+                "657ea0ccb93da969"
+            ]
+        ]
+    },
+    {
+        "id": "657ea0ccb93da969",
+        "type": "function",
+        "z": "3437b01cdc9be678",
+        "name": "meter generator",
+        "func": "let meters = [\n    {name: \"hauptanschluss\", \"meter_id\": 1, max: 15000},\n    { name: \"serverraum\", \"meter_id\": 2, max: 2500},\n    { name: \"hvac\", \"meter_id\": 3, max: 5000}\n];\n\nlet d = meters[Math.floor(Math.random() * meters.length)];\n\nmsg.topic = \"enmon/\" + d.name;\n\nmsg.payload = {\n    meter_id: d.meter_id,\n    value: Math.floor(d.max * (0.7 + Math.random() * 0.6))\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 580,
+        "wires": [
+            [
+                "48be47aea7a60572",
+                "9d93cd6119344d27"
+            ]
+        ]
+    },
+    {
+        "id": "48be47aea7a60572",
+        "type": "debug",
+        "z": "3437b01cdc9be678",
+        "name": "debug A",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "9d93cd6119344d27",
+        "type": "mqtt out",
+        "z": "3437b01cdc9be678",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "17bb9c60c5d294a3",
+        "x": 610,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "a8f20adbd99e6945",
+        "type": "mqtt in",
+        "z": "3437b01cdc9be678",
+        "name": "",
+        "topic": "enmon/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "30a8d91849a917c0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 80,
+        "y": 700,
+        "wires": [
+            [
+                "d5fcb08d6b6a2494",
+                "1f6a554d8eae8795"
+            ]
+        ]
+    },
+    {
+        "id": "d5fcb08d6b6a2494",
+        "type": "debug",
+        "z": "3437b01cdc9be678",
+        "name": "debug B",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "f4e051f8cb114c4f",
+        "type": "function",
+        "z": "3437b01cdc9be678",
+        "name": "readings",
+        "func": "\nmsg.payload = [{\n    \"meter_id\": msg.payload.meter_id,\n    \"value\": msg.payload.value\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 700,
+        "wires": [
+            [
+                "55de446811f39afa",
+                "d98b84428a5b9d36"
+            ]
+        ]
+    },
+    {
+        "id": "55de446811f39afa",
+        "type": "http request",
+        "z": "3437b01cdc9be678",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://pdvqrtyqhdxvaiommjdw.supabase.co/rest/v1/readings",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "apikey",
+                "valueType": "other",
+                "valueValue": "sb_publishable_65QhshLEqdb66bWd8UIWKw_uKU-v_wL"
+            },
+            {
+                "keyType": "Authorization",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "Bearer sb_publishable_65QhshLEqdb66bWd8UIWKw_uKU-v_wL"
+            }
+        ],
+        "x": 610,
+        "y": 700,
+        "wires": [
+            [
+                "9e3af3f0c703e50a"
+            ]
+        ]
+    },
+    {
+        "id": "d98b84428a5b9d36",
+        "type": "debug",
+        "z": "3437b01cdc9be678",
+        "name": "debug C",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "9e3af3f0c703e50a",
+        "type": "debug",
+        "z": "3437b01cdc9be678",
+        "name": "debug D",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "1f6a554d8eae8795",
+        "type": "json",
+        "z": "3437b01cdc9be678",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 250,
+        "y": 700,
+        "wires": [
+            [
+                "f4e051f8cb114c4f"
+            ]
+        ]
+    },
+    {
+        "id": "17bb9c60c5d294a3",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "30a8d91849a917c0",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
     }
 ]
